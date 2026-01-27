@@ -1,0 +1,16 @@
+{
+  "name": "backend_megaproject",
+  "version": "1.0.0",
+  "description": "starting backend journey with this",
+  "keywords": [
+    "javascript",
+    "backend"
+  ],
+  "license": "ISC",
+  "author": "Saad Shaikh",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
