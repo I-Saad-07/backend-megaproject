@@ -1,10 +1,11 @@
 
 const asyncHandler = (requestHandler) => {
   (req, res, next) => {
-    Promise.resolve(requestHandler(req, res, next)).catch((err) => next(err)).
-    catch((err) => next(err))
+    Promise.resolve(requestHandler(req, res, next)).catch((err) => next(err))
   }
 }
+
+// Wraps controller functions, Auto-catches errors, Passes errors to Express error handler
 
 export {asyncHandler}
 

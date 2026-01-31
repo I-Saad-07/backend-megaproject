@@ -1,13 +1,17 @@
 // require('dotenv').config({path: './env'})
 import connectDB from "./db/dbindex.js";
 import dotenv from "dotenv"
+import { app } from "./app.js"
 
 dotenv.config({
   path: './env'
 })
+// Loads environment variables from .env file into process.env.
+
 
 connectDB()
-.then(() => {
+.then(() => {  // Call connectDB() - it returns a Promise (because it's async).
+  // After DB connects successfully → start the server
   app.listen(process.env.PORT || 8000, () => {
     console.log(`Server is running at port : ${process.env.PORT}`)
   })
@@ -17,18 +21,7 @@ connectDB()
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+// Another way to do the same thing as above
 /*
 import express from "express"
 ;(async () => {
