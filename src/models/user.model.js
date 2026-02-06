@@ -37,10 +37,12 @@ const userSchema = new Schema (
         type: String
       },
 
-      watchHistory:[{   // Simple types (String, Number) are JavaScript built-ins; Schema.Types (ObjectId, Mixed, Decimal128) are MongoDB's special types requiring full path.
-        type: Schema.Types.ObjectId,  // This creates a reference to Video model (this creates relation between collections)
-        ref: "Video"  // You need to give a ref in the fields like what model are you reffering 
-      }],
+      watchHistory:[
+          {   // Simple types (String, Number) are JavaScript built-ins; Schema.Types (ObjectId, Mixed, Decimal128) are MongoDB's special types requiring full path.
+          type: Schema.Types.ObjectId,  // This creates a reference to Video model (this creates relation between collections)
+          ref: "Video"  // You need to give a ref in the fields like what model are you reffering 
+        }
+      ],
 
       password: {
         type: String,

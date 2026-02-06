@@ -13,4 +13,4 @@ class ApiResponse {
   "message": "User fetched",
   "success": true
 */
-export {ApiResponse}
+export { ApiResponse }
