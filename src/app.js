@@ -21,3 +21,9 @@ app.use(cookieParser())
 // Reads cookies from request, Allows setting cookies in response
 
 export { app }
+
+// import routes
+import userRouter from './routes/user.routes.js'
+
+// declaration of routes
+app.use("/api/v1/users", userRouter)

@@ -41,7 +41,7 @@ const videoSchema = new Schema (
 
     owner: {
       type: Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User"   // Reference to User who uploaded the video
     }
   },
   {
@@ -49,6 +49,8 @@ const videoSchema = new Schema (
   }
 )
 
-videoSchema-plugin(mongooseAggregatePaginate)
+videoSchema.plugin(mongooseAggregatePaginate)
 
 export const Video = mongoose.model("Video", videoSchema)
+
+//  Video model stores video metadata (URLs, duration, views) with reference to owner; includes pagination plugin for loading videos in chunks.
