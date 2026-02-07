@@ -58,12 +58,9 @@ const userSchema = new Schema (
   }
 )
 
-userSchema.pre("save", async function (next) {  // .pre("save") - this part of code runs before saving data (password here) to the DB
-
-  if (!this.isModified("password")) return next();  // (isModified) - checks if the password filed is changed, skips if not modified
-
-  this.password = await bcrypt.hash(this.password, 10)
-  next()
+userSchema.pre("save", async function () {  // .pre("save") - this part of code runs before saving data (password here) to the DB
+  if (!this.isModified("password")) return;  // (isModified) - checks if the password filed is changed, skips if not modified
+  this.password = await bcrypt.hash(this.password, 10);
 })
 
 userSchema.methods.isPasswordCorrect = async function 
