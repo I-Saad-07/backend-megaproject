@@ -368,7 +368,7 @@ const updateUserCoverImage = asyncHandler (async (req, res) => {
 // 8) Channel Profile Details
 const getUserChannelProfile = asyncHandler (async (req, res) => {
   
-  const { username } = req.params
+  const { username } = req.params   // User visits: /profile/saad
 
   if (!username?.trim()) {
     throw new ApiError(400, "username is missing")
@@ -381,30 +381,32 @@ const getUserChannelProfile = asyncHandler (async (req, res) => {
       }
     },
     {
-      $lookup: {
-        from: "subscription",
-        localField: "_id",
-        foreignField: "channel",
-        as: "subscribers"
+      $lookup: {  // Finds all subscription documents where this user is the channel (people who subscribed TO them).
+        from: "subscription",    // From subscriptions collection
+        localField: "_id",       // User's ID
+        foreignField: "channel", // Where channel = user._id
+        as: "subscribers"        // Store results in "subscribers" array
       }
+      // User ID = 123 → Find all subscriptions where channel_id = 123
     },
     {
-        $lookup: {
+        $lookup: {  // Finds all subscription documents where this user is the subscriber (channels they subscribed TO).
         from: "subscription",
         localField: "_id",
-        foreignField: "subscriber",
+        foreignField: "subscriber", // Where subscriber = user._id
         as: "subscribedTo"
       }
+      // User ID = 123 → Find all subscriptions where subscriber_id = 123
     },
     {
       $addFields: {
         subscribersCount: {
-          $size: "$subscribers"
+          $size: "$subscribers"   // Count subscribers array
         },
         channelsSubcribedToCount: {
-          $size: "subscribedTo"
+          $size: "$subscribedTo"  // Count subscribedTo array
         },
-        isSubscribed: {
+        isSubscribed: {   // Is the logged-in user (req.user) subscribed to this channel?
           $cond: {
             if: {$in: [req.user?._id, "$subscribers.subscriber"]},
             then: true,
